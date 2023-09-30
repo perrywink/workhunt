@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block body %}
+<section class="section">
+  <div class="hero">
+    <div class="hero-body">
+      <h1 class="title">Your next job is a few clicks away.</h1>
+      <p class="subtitle">Find your next dream job.</p>
+      <form class="field has-addons" action="{{ url_for('search_jobs') }}" method="post">
+        <p class="control">
+          <input name="search-query" class="input" type="text" placeholder="Search for a job...">
+        </p>
+        <p class="control">
+          <button class="button is-dark" type="submit">
+            Search
+          </button>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+<section style="display: grid;grid-template-columns: 1fr 1fr 1fr; grid-auto-flow: row dense;" class="mx-4">
+  {% for jobad in jobads %}
+  <a class="card p-2 m-2" href="{{ url_for('jobad', webidx=jobad.web_idx) }}">
+    <div class="card-content">
+      <div class="content">
+        <p class="title is-4">{{ jobad.title }}</p>
+        <p class="subtitle is-6">{{ jobad.company }}</p>
+        <p class="tag">{{ jobad.category }}</p>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</section>
+{% endblock %}

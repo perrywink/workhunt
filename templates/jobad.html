@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block body %}
+{% if jobad %}
+<section class="hero">
+  <div class="hero-body">
+    <p class="title">
+      {{jobad.title}}
+    </p>
+    <p class="subtitle">
+      {{jobad.company}}
+    </p>
+    <p class="tag">
+      {{jobad.category}}
+    </p>
+  </div>
+</section>
+<div class="section py-0">
+  {{jobad.description}}
+</div>
+{% else %}
+<div class="container notification is-danger">
+  <p class="title">404 Not Found.</p>
+  <p>Oops! Looks like you have stumbled on a page which doesn't exist.</p>
+</div>
+{% endif %}
+<div class="section buttons">
+  <a class="button is-primary" href="#">
+    Apply
+  </a>
+  <a class="button" href="{{ url_for('index') }}">
+    Back
+  </a>
+</div>
+
+
+{% endblock %}
