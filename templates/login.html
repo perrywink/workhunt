@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block body %}
+<section style="height: 90vh; width: 400px" 
+  class="container is-max-desktop is-flex is-flex-direction-column is-justify-content-center px-5">
+  {% if login_message %}
+  <div class="notification">{{ login_message }}</div>
+  {% endif %}
+  <form action="{{ url_for('login') }}" method="post">
+    <div class="field">
+      <label class="label">Username</label>
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          name="username"
+          placeholder="ElliotAlderson"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Password</label>
+      <div class="control">
+        <input class="input" type="password" name="password" />
+      </div>
+    </div>
+    <div class="control">
+      <button class="button is-primary mt-5" type="submit" style="width: 100%">Login</button>
+    </div>
+</form>
+</section>
+{% endblock %}
