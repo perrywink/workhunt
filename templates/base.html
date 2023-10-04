@@ -36,8 +36,13 @@
       </div>
       <div class="navbar-menu" id="navMenu">
         <div class="navbar-end">
-          <a class="navbar-item" href="{{url_for('index')}}"> Home </a>
-          {% if session['username'] == "employee" %}
+          <a class="navbar-item" href="{{url_for('about')}}"> About </a>
+
+          {% if session['username'] %}
+          <a class="navbar-item" href="{{url_for('index')}}"> Job Search </a>
+          {% endif %}
+
+          {% if session['username'] == "employer" %}
           <a class="navbar-item" href="{{url_for('new_jobad')}}">
             Create Job Listing
           </a>

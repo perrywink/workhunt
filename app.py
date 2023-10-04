@@ -9,8 +9,14 @@ import uuid
 app = Flask(__name__, template_folder="templates")
 app.secret_key = os.urandom(16)
 
+employer_creds = {"username": "employer", "password":"qweasd"}
+jobseeker_creds = {"username": "jobseeker", "password":"qweasd"}
+
 @app.route('/')
 def index():
+  if 'username' not in session:
+    return redirect('login')
+
   search_query = request.args.get("search")
   category_query = request.args.get("category")
 
@@ -29,9 +35,12 @@ def login():
     return redirect('/new-jobad')
   else:
     if request.method == "POST":
-      if (request.form['username'] == 'employee') and (request.form['password'] == 'qweasd'):
+      if (request.form['username'] == employer_creds['username']) and (request.form['password'] == employer_creds['password']):
         session['username'] = request.form['username']
         return redirect('/new-jobad')
+      if (request.form['username'] == jobseeker_creds['username']) and (request.form['password'] == jobseeker_creds['password']):
+        session['username'] = request.form['username']
+        return redirect('/')
       else:
         return render_template('login.html', login_message='Username of password is invalid.')
   return render_template('login.html')
@@ -50,7 +59,8 @@ def new_jobad():
   if 'username' not in session:
     return redirect('login')
   
-  print(request.form, request.args, request.data)
+  if session['username'] != employer_creds['username']:
+    return redirect('login')
   
   if request.method == "POST":
     if 'classify' in request.form:
@@ -80,12 +90,15 @@ def new_jobad():
 
       f_category = request.form["category"]
 
-      add_jobad([uuid.uuid4(), f_title, f_company, desc, f_category])
+      add_jobad([uuid.uuid4(),f_title,desc,f_company,f_category])
 
       return render_template('new-jobad.html', title=f_title, description=f_desc, company=f_company, category=f_category, alert="Job advert successfully added!")
 
   return render_template('new-jobad.html')
 
+@app.route('/about')
+def about():
+  return render_template('about.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
