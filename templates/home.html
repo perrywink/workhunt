@@ -9,14 +9,16 @@
         method="get"
       >
       <fieldset class="field has-addons">
-          <div class="select control">
-            <select name="category">
-              <option value="" {%if category == ''%} selected {%endif%}>Any Category...</option>
-              <option value="Accounting_Finance" {%if category == 'Accounting_Finance'%} selected {%endif%}>Accounting/Finance</option>
-              <option value="Engineering" {%if category == 'Engineering'%} selected {%endif%}>Engineering</option>
-              <option value="Healthcare_Nursing" {%if category == 'Healthcare_Nursing'%} selected {%endif%}>Healthcare/Nursing</option>
-              <option value="Sales" {%if category == 'Sales'%} selected {%endif%}>Sales</option>
-            </select>
+        <div class="control">
+            <div class="select">
+              <select name="category">
+                <option value="" {%if category == ''%} selected {%endif%}>Any Category...</option>
+                <option value="Accounting_Finance" {%if category == 'Accounting_Finance'%} selected {%endif%}>Accounting/Finance</option>
+                <option value="Engineering" {%if category == 'Engineering'%} selected {%endif%}>Engineering</option>
+                <option value="Healthcare_Nursing" {%if category == 'Healthcare_Nursing'%} selected {%endif%}>Healthcare/Nursing</option>
+                <option value="Sales" {%if category == 'Sales'%} selected {%endif%}>Sales</option>
+              </select>
+            </div>
           </div>
           <p class="control">
             <input

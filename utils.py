@@ -1,5 +1,6 @@
 import csv
 import re
+import numpy as np
 
 def read_data():
   with open('./data/data.csv') as csv_file:
@@ -15,6 +16,11 @@ def read_data():
         "category": row[4]
       })
   return jobads
+
+def add_jobad(row):
+  f = open('data/data.csv', 'a')
+  writer = csv.writer(f)
+  writer.writerow(row)
 
 def find_ad(web_idx):
   with open('./data/data.csv') as csv_file:
@@ -47,11 +53,12 @@ def search_data(search_query, category_query):
     next(data, None)  # skip the headers
     results = []
     for row in data:
+      search_rgx = "." if search_query == "" else search_query.lower()
+
       # concat title, desc and company for regex match
       # lower to ignore capitalisation
       concat_text = ' '.join([row[1], row[2], row[3]]).lower()
-      search_match = re.search(search_query.lower(), concat_text)
-
+      search_match = re.search(search_rgx, concat_text)
       # if no category specified
       if category_query == "" and search_match:
         appendRowToResult(results, row)
@@ -62,5 +69,14 @@ def search_data(search_query, category_query):
         appendRowToResult(results, row)
   return results
 
+
+def docvecsFT(embeddings, docs):
+    vecs = np.zeros((len(docs), embeddings.vector_size))
+    for i, doc in enumerate(docs):
+        embeds = [embeddings[term] for term in doc] # no filtering here
+        docvec = np.vstack(embeds)
+        docvec = np.sum(docvec, axis=0)
+        vecs[i,:] = docvec
+    return vecs
       
       

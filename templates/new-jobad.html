@@ -1,5 +1,62 @@
 {% extends "base.html" %} {% block body %}
+{% if alert %}
+  <div class="notification is-success">
+    {{alert}}
+  </div>
+{% endif %}
+<section style="height: 80vh; width: 1200px" 
+  class="container is-max-desktop is-flex is-flex-direction-column is-justify-content-center px-5">
+  <form action="{{ url_for('new_jobad') }}" method="POST">
+    <h1 class="title">New Job Listing</h1>
+    <h2 class="subtitle">Fill in details about your job offer below</h2>
 
-logged in!
+    <div class="field">
+      <label class="label">Title</label>
+      <div class="control">
+        <input name="title" class="input" type="text" placeholder="e.g. Security Engineer" value="{{title}}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Company</label>
+      <div class="control">
+        <input name="company" class="input" type="text" placeholder="e.g AllSafe" value="{{company}}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea name="description" class="textarea" placeholder="Describe the position...">{{description}}</textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Category</label>
+      <div class="field has-addons">
+        <div class="control">
+          <div class="select ">
+            <select name="category">
+              <option value="" {%if category == ''%} selected {%endif%}>Select a category...</option>
+              <option value="Accounting_Finance" {%if category == 'Accounting_Finance'%} selected {%endif%}>Accounting/Finance</option>
+              <option value="Engineering" {%if category == 'Engineering'%} selected {%endif%}>Engineering</option>
+              <option value="Healthcare_Nursing" {%if category == 'Healthcare_Nursing'%} selected {%endif%}>Healthcare/Nursing</option>
+              <option value="Sales" {%if category == 'Sales'%} selected {%endif%}>Sales</option>
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <button class="button is-secondary" type="submit" name="classify">Classify</button>
+        </div>
+      </div>
+      <p class="help">Click on "Classify" to let us classify your jobad for you!</p>
+
+    </div>
+
+    <div class="control">
+      <button class="button is-primary mt-5 is-medium" type="submit" style="width: 100%" name="main">Submit</button>
+    </div>
+  </form>
+</section>
 
 {% endblock %}
