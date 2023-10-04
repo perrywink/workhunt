@@ -1,3 +1,6 @@
+Student Name: Yi Jie Chuah
+Student Number: s3847905
+
 Instructions for running website:
 - To run this codebase, you will need to download the 'bbcFT.model' and 'bbcFT.model.wv.vectors_ngrams.npy' files 
   which are available in the following OneDrive link:
